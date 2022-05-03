@@ -1,0 +1,348 @@
+---
+title: "Prise en main rapide de données sous R : Quiz inter-journées"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## Généralités 
+
+
+```{r quiz1, echo = FALSE}
+quiz(caption = "Questionnaire",
+     question("Quelle fonction permet de charger un package en mémoire ?",
+              answer("library()", correct = TRUE),
+              answer("install.packages()", message = "Cette fonction sert à installer un package"),
+              correct = "VRAI, il faut charger les packages dont on a besoin à chaque nouvelle session R",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     ),
+     
+     question("Quelle fonction permet d'afficher les premières lignes d'une table ?",
+              answer("str()", message = "Cette fonction sert à afficher la structure d'une table"),
+              answer("View()", message = "Cette fonction sert à afficher une table"),
+              answer("head()", correct = TRUE),
+              answer("tail()", message = "Cette fonction sert à afficher les dernières lignes d'une table"),
+              correct = "VRAI, les 5 premières lignes par défaut",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     ),
+     
+     question("Comment sélectionner la 10ème ligne de la table 'tab_naissances' ? (2 réponses à sélectionner)",
+              answer("tab_naissances %>% slice(10)", correct = TRUE),
+              answer("tab_naissances %>% tail(10) %>% head(1)", message = "Sélection de la 10ème ligne en partant de la fin"),
+              answer("tab_naissances %>% head(10) %>% tail(1)", correct = TRUE),
+              answer("tab_naissances %>% select(10)", message = "Sélection de la 10ème colonne"),
+              correct = "VRAI",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     )
+     
+)
+```    
+
+## dplyr
+
+```{r quiz2, echo = FALSE}
+quiz(caption = "Questionnaire",  
+     question(" G(F(X)) est équivalent à ?",
+              answer("X %>% G()  %>% F()", message = "on obtient F(G(X))"),
+              answer("X %>% F()  %>% G()", correct = TRUE),
+              correct = "VRAI",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     ),
+     question("Quelle fonction permet de sélectionner les colonnes d'une table ?",
+              answer("distinct()", message = "Cette fonction permet de conserver uniquement les lignes distinctes, en supprimant toutes les lignes en double"),
+              answer("select()", correct = TRUE),
+              answer("filter()", message = "Cette fonction sert à sélectionner des lignes"),
+              answer("head()", message = "Cette fonction sert à afficher les premières lignes d'une table"),
+              correct = "VRAI",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     ),
+     question("Quelle fonction permet de sélectionner les observations d'une table ?",
+              answer("distinct()", message = "Cette fonction permet de conserver uniquement les lignes distinctes, en supprimant toutes les lignes en double"),
+              answer("select()", message = "Cette fonction sert à sélectionner des colonnes"),
+              answer("filter()", correct = TRUE),
+              answer("head()", message = "Cette fonction sert à afficher les premières lignes d'une table"),
+              correct = "VRAI",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     ),
+     question("Quelle fonction permet de créer ou modifier une variable ?",
+              answer("distinct()", message = "Cette fonction permet de conserver uniquement les lignes distinctes, en supprimant toutes les lignes en double"),
+              answer("rename()", message = "Cette fonction sert à renommer des variables"),
+              answer("filter()", message = "Cette fonction sert à sélectionner des lignes"),
+              answer("mutate()", correct = TRUE),
+              correct = "VRAI",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     ),
+     question("Quelle fonction n'appartient pas au package dplyr ?",
+              answer("select()", message = "Cette fonction sert à sélectionner des colonnes"),
+              answer("arrange()", message = "Cette fonction sert à renommer des variables"),
+              answer("filter()", message = "Cette fonction sert à sélectionner des lignes"),
+              answer("summary()", correct = TRUE, message = "cette fonction appartient au package 'base'"),
+              correct = "VRAI",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     )
+     
+)
+
+```
+
+
+## Statistiques
+
+```{r quiz3, echo = FALSE}
+quiz(caption = "Questionnaire",  
+     question("Quelle fonction permet de générer des statistiques sur différentes variables ?",
+              answer("summarise()", correct = TRUE),
+              answer("subset()"),
+              answer("mutate()"),
+              answer("set()"),
+              correct = "VRAI",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     ),
+     question("Comment sélectionner le nombre de naissances par communes ? (2 réponses à sélectionner)",
+              answer("tab_naissances %>% count() %>% group_by(comnais)", message = "inversion entre count() et group_by()"),
+              answer("tab_naissances %>% group_by(comnais) %>% count()", correct = TRUE),
+              answer("tab_naissances %>% group_by(comnais) %>% n()", message = "la fonction n() doit être utilisée dans un summarise()"),
+              answer("tab_naissances %>% group_by(comnais) %>% summarise(n=n())", correct = TRUE),
+              correct = "VRAI",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     ),
+     question("Comment sélectionner les naissances qui ont eu lieu dans le département 44 ou 49 ?",
+              answer("tab_naissances %>% filter((depnais=='44') & (depnais=='49'))", message = "le symbole & signifie 'et'"),
+              answer("tab_naissances %>% filter(depnais %in% ('44','49'))", message = "il manque la fonction c() pour créer le vecteur"),
+              answer("tab_naissances %>% filter(depnais %in% c('44','49'))", correct = TRUE),
+              correct = "VRAI",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     )
+     
+)
+
+```
+
+
+## Manipulation de chaînes de caractères
+
+```{r quiz4, echo = FALSE}
+quiz(caption = "Questionnaire",  
+
+     question("Lequel de ces packages permet de manipuler des chaînes de caractères ?",
+              answer("rio", message = "{rio} sert à simplifier l'import et l'export de données vers et depuis R"),
+              answer("StringR", message = "Attention à la casse !"),
+              answer("stringr", correct = TRUE),
+              correct = "VRAI",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     ),
+     question("Qu'est-ce qu'une expression régulière ?",
+              answer("Une chaîne de caractères qui permet de décrire un ensemble de chaînes de caractères à l'aide de méta-caractères (\\^, ?, *, ...)", correct = TRUE),
+              answer("Une expression mathématique continue et dérivable autant de fois qu'on le souhaite", message = "Cette définition est plutôt celle d'une fonction régulière en mathématiques, qui est assez loin de nos préoccupations dans le cadre de cette formation !"),
+              answer("Une expression qui permet d'extraire la tendance d'une série temporelle en la séparant de la composante saisonnière", message = "On utilise plutôt une moyenne mobile ou une différenciation pour cela, mais ce n'est pas le sujet de cette formation !"),
+              correct = "VRAI. ",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     ),
+    question("Laquelle de ces chaînes de caractères N'EST PAS décrite par le motif suivant : '\\^P.*pe$'",
+             answer("Pape"),
+             answer("Poulpe"),
+             answer("Principe"),
+             answer("Ppe"),
+             answer("Participer", correct = TRUE),
+             correct = "Bien vu ! Le métacaractère $ désigne la fin de la chaîne : 'Participer' ne se termine pas pas 'pe'",
+             incorrect = "Raté ! Le motif '\\^P.*pe$' décrit toute chaîne qui commence par 'P' et se termine par 'pe' avec un nombre quelconque (0 à N) de caractères entre les deux",
+             submit_button = "Envoyer",
+             allow_retry = TRUE,
+             try_again_button = "Réessayer"
+             ),
+         question("Que renvoie le code suivant :    
+     v <- c('a','b','c','d')    
+    str_detect(v, 'c')",
+              answer("TRUE", message = "str_detect() s'applique à chaque élément du vecteur v, le résultat est un vecteur logique de même longueur que v"),
+              answer("Une erreur", message = "Le code est correct !"),
+              answer("3", message = "Ce serait le résultat de str_which(v, 'c')"),
+              answer("FALSE FALSE TRUE FALSE", correct = TRUE),
+              correct = "VRAI",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     )
+     
+)
+
+```
+
+## Recoder les variables
+
+```{r quiz5, echo = FALSE}
+quiz(caption = "Questionnaire",  
+     question("Le type 'factor' s'utilise sur quelles variables ?",
+              answer("les variables quantitatives"),
+              answer("les variables qualitatives", correct = TRUE),
+              correct = "VRAI",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     ),
+     question("Quelle fonction permet de découper une variable numérique en classes ? (2 réponses à sélectionner)",
+              answer("group_by()", message = "Cette fonction permet de faire un regroupement sur une ou plusieurs variables"),
+              answer("case_when()", correct = TRUE),
+              answer("select()", message = "Cette fonction sert à sélectionner des colonnes"),
+              answer("cut()", correct = TRUE),
+              correct = "VRAI",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     ),
+     question("Comment sont représentées les valeurs manquantes dans R ?",
+              answer("0"),
+              answer("."),
+              answer("NULL"),
+              answer("NA", correct = TRUE),
+              correct = "VRAI",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     ),
+     question("Quelle fonction permet de réordonner les colonnes d'une table ?",
+              answer("slice()", message = "Cette fonction permet de sélectionner des lignes"),
+              answer("arrange()", message = "Cette fonction sert à trier selon une ou des variables"),
+              answer("filter()", message = "Cette fonction sert à sélectionner des lignes"),
+              answer("select()", correct = TRUE),
+              correct = "VRAI",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     ),
+     question("A quoi sert la fonction rename() ?",
+              answer("à renommer des tables (data.frame)"),
+              answer("à renommer des variables", correct = TRUE),
+              correct = "VRAI",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     )
+)
+
+```
+
+
+## Exporter des données
+
+```{r quiz6, echo = FALSE}
+quiz(caption = "Questionnaire",  
+     question("Quel type de fichier peut être importé par le package rio ?",
+              answer("dbf"),
+              answer("xlsx"),
+              answer("csv"),
+              answer("ods"),
+              answer("sas7bdat"),
+              answer("toutes les réponses ci-dessus", correct = TRUE),
+              correct = "VRAI",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     ),
+      question("Quel package permet d'importer des fichiers xlsx ?",
+              answer("openxlsx", correct = TRUE),
+              answer("gdata"),
+              answer("haven"),
+              answer("readr"),
+              correct = "VRAI",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     ),
+     question("Quelles fonctions sont présentes dans le package readr ? (2 réponses à sélectionner)",
+              answer("read.dbf()"),
+              answer("read_csv()", correct = TRUE),
+              answer("read.csv()"),
+              answer("write_csv()", correct = TRUE),
+              correct = "VRAI",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     )
+     
+)
+
+```
+
+
+## Combiner des tables
+
+```{r quiz7, echo = FALSE}
+quiz(caption = "Questionnaire", 
+     question("Quelle fonction permet de faire une jointure en conservant uniquement les observations communes aux 2 tables ?",
+              answer("full_join()"),
+              answer("left_join()"),
+              answer("inner_join()", correct = TRUE),
+              answer("anti_join()"),
+              correct = "VRAI",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     ),
+     question("Quelle fonction permet de faire une jointure en conservant toutes les observations des 2 tables ?",
+              answer("full_join()", correct = TRUE),
+              answer("left_join()"),
+              answer("inner_join()"),
+              answer("anti_join()"),
+              correct = "VRAI",
+              incorrect = "FAUX",
+              submit_button = "Envoyer",
+              allow_retry = TRUE,
+              try_again_button = "Réessayer"
+     )
+)
+
+```
